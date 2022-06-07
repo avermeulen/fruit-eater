@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+
+    <h1>Fruit eater</h1>
+    <div  x-data="fruitEater" class="fruits" >
+      <div class="fruit" >
+        <div>
+          🍎 <span x-text="fruits['apple']" ></span>
+        </div>
+        <button x-on:click="eat('apple')">Eat</button>
+      </div>
+      <div class="fruit">
+        <div>
+          🍐 <span x-text="fruits['pear']" ></span>
+        </div>
+        <button x-on:click="eat('pear')">Eat</button>
+      </div>
+      <div class="fruit">
+       <div>
+        🍌 <span x-text="fruits['banana']" ></span>
+       </div>
+        <button x-on:click="eat('banana')">Eat</button>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
