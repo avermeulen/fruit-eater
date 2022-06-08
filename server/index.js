@@ -68,16 +68,13 @@ function getUser(req, res, next){
 
 app.get('/api/fruits', getUser, async function(req, res){
 
-	console.log(req.username);
-
 	let counters = await fruitEaterService.getUserCounters(req.username);
-	console.log(counters);
-
 	if (counters.length == 0) {
 		await fruitEaterService.createCountersForUser(req.username);
 		counters = await fruitEaterService.getUserCounters(req.username);
 	}
 	res.json({fruits : counters})
+	
 });
 
 app.post('/api/eat', getUser, async function(req, res){

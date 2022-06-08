@@ -1,6 +1,5 @@
 module.exports = function(db) {
-
-
+	
 	async function findUser(username) {
 		return await db.oneOrNone('select * from fruit_eater where username = $1', [username])
 	}
@@ -26,12 +25,10 @@ module.exports = function(db) {
 
 	async function eatFruit(username, fruit) {
 		
-		console.log(arguments);
-
 		const {id} = await findUser(username);
-		
 		const sql = `update fruit_eaten set counter = counter + 1 where fruit_name = $1 and user_id = $2`
 		await db.none(sql, [fruit, id]);
+
 	}
 
 	return {
