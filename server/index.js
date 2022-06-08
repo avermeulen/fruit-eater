@@ -10,7 +10,7 @@ require('dotenv').config()
 const initOptions = {/* initialization options */};
 const pgp = PgPromise(initOptions);
 
-const DATABASE_URL="postgres://fruit_eater:eat123@localhost:5432/fruit_eater_app";
+const DATABASE_URL= process.env.DATABASE_URL || "postgres://fruit_eater:eat123@localhost:5432/fruit_eater_app";
 
 const db = pgp(DATABASE_URL);
 const FruitEaterService = require('./fruit-eater-service');
