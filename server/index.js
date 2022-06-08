@@ -27,5 +27,4 @@ app.get('/api/fruits', function(req, res){
 
 const PORT = process.env.PORT || 3011;
 
-// console.log(PORT);
 app.listen(PORT, () => console.log(`App started on ${PORT}`))
