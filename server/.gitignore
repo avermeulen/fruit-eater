@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 sqltools_*.log*
-
+.env
 node_modules
 dist
 dist-ssr
