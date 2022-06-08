@@ -12,7 +12,13 @@ const pgp = PgPromise(initOptions);
 
 const DATABASE_URL= process.env.DATABASE_URL || "postgres://fruit_eater:eat123@localhost:5432/fruit_eater_app";
 
-const db = pgp(DATABASE_URL);
+const db = pgp({ 
+	connectionString : DATABASE_URL,
+	ssl:{ 
+		rejectUnauthorized : false
+	}
+});
+
 const FruitEaterService = require('./fruit-eater-service');
 const fruitEaterService = FruitEaterService(db);
 
