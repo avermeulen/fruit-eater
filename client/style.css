@@ -26,6 +26,19 @@ body {
   margin: auto;
 }
 
+.input label {
+  display: block;
+  margin-top: 0.25em;
+}
+
+.mt-1{
+  margin-top: 0.5em;
+}
+
+.message {
+  background-color: lightgrey;
+  padding: 1em;
+}
 
 @media (min-width: 768px) {
   .container {

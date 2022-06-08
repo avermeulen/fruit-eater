@@ -12,24 +12,74 @@
 
   <div class="container">
     <h1>Fruit eater</h1>
+
     <div x-data="fruitEater" class="fruits">
-      <div class="fruit">
-        <div>
-          🍎 <span x-text="fruits['apple']"></span>
+      <div class="login" x-show="!logged_in">
+        <h2>Login</h2>
+        <div class="message" x-text="login_message" x-show="login_message !== '' " >
         </div>
-        <button x-on:click="eat('apple')">Eat</button>
+        <div class="input">
+          <label for="username">Username</label>
+          <input x-model="username" type="text" id="username">
+        </div>
+        <div class="input">
+          <label for="password">Password</label>
+          <input x-model="password" type="password" id="password">
+        </div>
+        <div>
+          <button class="mt-1" @click="login">Login</button>
+        </div>
       </div>
-      <div class="fruit">
-        <div>
-          🍐 <span x-text="fruits['pear']"></span>
+      <div class="register">
+
+        <div class="mt-1" x-show="!register && !logged_in">
+          <a href="#" @click="register=true">Register</a>
         </div>
-        <button x-on:click="eat('pear')">Eat</button>
+
+        <div x-show="register">
+          <h2>Register</h2>
+          <div class="message" x-text="registration_message" x-show="registration_message !== '' " >
+
+          </div>
+          <div class="input">
+            <label for="username">Username</label>
+            <input type="text" x-model="username" id="username">
+          </div>
+          <div class="input">
+            <label for="password" >Password</label>
+            <input type="password" x-model="password" id="password">
+          </div>
+
+          <div>
+            <button class="mt-1" @click="registerUser" >Register</button>
+            <button class="mt-1" @click="register=false">Cancel</button>
+          </div>
+        </div>
+
+
       </div>
-      <div class="fruit">
-        <div>
-          🍌 <span x-text="fruits['banana']"></span>
+      <div class="fruits" x-show="logged_in">
+        <a href="#" @click="logged_in=false">Logout</a>
+
+        <h2>Fruits eaten</h2>
+        <div class="fruit">
+          <div>
+            🍎 <span x-text="fruits['apple']"></span>
+          </div>
+          <button x-on:click="eat('apple')">Eat</button>
         </div>
-        <button x-on:click="eat('banana')">Eat</button>
+        <div class="fruit">
+          <div>
+            🍐 <span x-text="fruits['pear']"></span>
+          </div>
+          <button x-on:click="eat('pear')">Eat</button>
+        </div>
+        <div class="fruit">
+          <div>
+            🍌 <span x-text="fruits['banana']"></span>
+          </div>
+          <button x-on:click="eat('banana')">Eat</button>
+        </div>
       </div>
     </div>
   </div>
