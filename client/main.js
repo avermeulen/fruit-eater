@@ -71,6 +71,11 @@ Alpine.data('fruitEater', function () {
       }
     },
 
+    logout(){
+      this.logged_in=false;
+      localStorage.removeItem('token');
+    },
+
     clearCredentials() {
       this.username = '';
       this.password = '';
