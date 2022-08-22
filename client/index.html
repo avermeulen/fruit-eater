@@ -14,7 +14,7 @@
     <h1>Fruit eater</h1>
 
     <div x-data="fruitEater" class="fruits">
-      <div class="login" x-show="!logged_in">
+      <div class="login" x-show="!logged_in && !register">
         <h2>Login</h2>
         <div class="message" x-text="login_message" x-show="login_message !== '' " >
         </div>
@@ -42,12 +42,12 @@
 
           </div>
           <div class="input">
-            <label for="username">Username</label>
-            <input type="text" x-model="username" id="username">
+            <label for="usernameReg">Username</label>
+            <input type="text" x-model="username" id="usernameReg">
           </div>
           <div class="input">
-            <label for="password" >Password</label>
-            <input type="password" x-model="password" id="password">
+            <label for="passwordReg" >Password</label>
+            <input type="password" x-model="password" id="passwordReg">
           </div>
 
           <div>
@@ -64,21 +64,21 @@
         <h2>Fruits eaten</h2>
         <div class="fruit">
           <div>
-            🍎 <span x-text="fruits['apple']"></span>
+            🍎 <span x-text="$store.fruitStore.fruits['apple']"></span>
           </div>
-          <button x-on:click="eat('apple')">Eat</button>
+          <button x-on:click="$store.fruitStore.eat('apple')">Eat</button>
         </div>
         <div class="fruit">
           <div>
-            🍐 <span x-text="fruits['pear']"></span>
+            🍐 <span x-text="$store.fruitStore.fruits['pear']"></span>
           </div>
-          <button x-on:click="eat('pear')">Eat</button>
+          <button x-on:click="$store.fruitStore.eat('pear')">Eat</button>
         </div>
         <div class="fruit">
           <div>
-            🍌 <span x-text="fruits['banana']"></span>
+            🍌 <span x-text="$store.fruitStore.fruits['banana']"></span>
           </div>
-          <button x-on:click="eat('banana')">Eat</button>
+          <button x-on:click="$store.fruitStore.eat('banana')">Eat</button>
         </div>
       </div>
     </div>

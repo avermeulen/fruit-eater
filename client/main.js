@@ -1,9 +1,10 @@
 import './style.css'
 
-import Alpine from 'alpinejs'
+import Alpine from 'alpinejs';
 import axios from 'axios';
+import FruitStore from './fruit-store';
 
-// axios.defaults.baseURL = 'http://localhost:1010/
+const URL_BASE = import.meta.env.VITE_SERVER_URL;
 
 function updateAxiosJWToken() {
   const token = localStorage.getItem('token')
@@ -12,10 +13,9 @@ function updateAxiosJWToken() {
 
 updateAxiosJWToken();
 
-
 window.Alpine = Alpine
 
-const URL_BASE = import.meta.env.VITE_SERVER_URL;
+Alpine.store('fruitStore', FruitStore);
 
 Alpine.data('fruitEater', function () {
   return {
@@ -25,10 +25,12 @@ Alpine.data('fruitEater', function () {
     },
     tryLogin() {
       if (localStorage.getItem('token')) {
-        this
-          .loadFruits()
+
+          const fruitStore = Alpine.store('fruitStore');
+
+          fruitStore.loadFruits()
           .then(() => {
-            if (Object.keys(this.fruits).length > 0) {
+            if (Object.keys(fruitStore.fruits).length > 0) {
                 this.logged_in = true;
             } else {
               this.logged_in = false;
@@ -47,27 +49,27 @@ Alpine.data('fruitEater', function () {
       if (!this.username && !this.password) {
         this.tryLogin()
       } else if (this.username && this.password) {
-        // this.logged_in = true;
         const url = `${URL_BASE}/api/login`
-
         axios.post(url, {
           username: this.username,
           password: this.password
-        })
-          .then((result) => {
+        }).then((result) => {
 
             // this.registration_message = "New user created!"
             const { data } = result.data;
             if (data && data.token) {
               localStorage.setItem('token', data.token);
               updateAxiosJWToken();
-              this.loadFruits()
-              this.logged_in = true;
-              this.clearCredentials();
+              const fruitStore = Alpine.store('fruitStore');
+              fruitStore
+                .loadFruits()
+                .then(() => {
+                  this.logged_in = true;
+                  this.clearCredentials();
+                })
             }
           })
           .catch(err => alert(err))
-
       }
     },
 
@@ -93,9 +95,7 @@ Alpine.data('fruitEater', function () {
           password: this.password
         })
           .then(() => {
-
             this.registration_message = "New user created!"
-
 
             setTimeout(() => {
               this.registration_message = "New user created!";
@@ -104,38 +104,6 @@ Alpine.data('fruitEater', function () {
           })
           .catch(err => alert(err))
       }
-
-    },
-
-    loadFruits() {
-
-      const url = `${URL_BASE}/api/fruits`
-
-      return axios
-        .get(url)
-        .then((result) => {
-          console.log(result.data)
-
-          const fruits = result.data.fruits.reduce((obj, fruit) => {
-            obj[fruit.fruit_name] = fruit.counter;
-            return obj;
-          }, {})
-
-          this.fruits = { ...fruits }
-        })
-    },
-
-    fruits: {
-      apple: 0,
-      pear: 0,
-      banana: 0
-    },
-    eat(fruit) {
-
-      const url = `${URL_BASE}/api/eat/`
-      axios
-        .post(url, { fruit })
-        .then(() => this.fruits[fruit]++)
     }
   }
 });
