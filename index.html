@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/fruit-eater/assets/favicon.17e50649.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <script type="module" crossorigin src="/fruit-eater/assets/index.648244d1.js"></script>
+  <link rel="stylesheet" href="/fruit-eater/assets/index.4fba8641.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Fruit eater</h1>
+
+    <div x-data="fruitEater" class="fruits">
+      <div class="login" x-show="!logged_in && !register">
+        <h2>Login</h2>
+        <div class="message" x-text="login_message" x-show="login_message !== '' " >
+        </div>
+        <div class="input">
+          <label for="username">Username</label>
+          <input x-model="username" type="text" id="username">
+        </div>
+        <div class="input">
+          <label for="password">Password</label>
+          <input x-model="password" type="password" id="password">
+        </div>
+        <div>
+          <button class="mt-1" @click="login">Login</button>
+        </div>
+      </div>
+      <div class="register">
+
+        <div class="mt-1" x-show="!register && !logged_in">
+          <a href="#" @click="register=true">Register</a>
+        </div>
+
+        <div x-show="register">
+          <h2>Register</h2>
+          <div class="message" x-text="registration_message" x-show="registration_message !== '' " >
+
+          </div>
+          <div class="input">
+            <label for="usernameReg">Username</label>
+            <input type="text" x-model="username" id="usernameReg">
+          </div>
+          <div class="input">
+            <label for="passwordReg" >Password</label>
+            <input type="password" x-model="password" id="passwordReg">
+          </div>
+
+          <div>
+            <button class="mt-1" @click="registerUser" >Register</button>
+            <button class="mt-1" @click="register=false">Cancel</button>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="fruits" x-show="logged_in">
+        <a href="#" @click="logout()">Logout</a>
+
+        <h2>Fruits eaten</h2>
+        <div class="fruit">
+          <div>
+            🍎 <span x-text="$store.fruitStore.fruits['apple']"></span>
+          </div>
+          <button x-on:click="$store.fruitStore.eat('apple')">Eat</button>
+        </div>
+        <div class="fruit">
+          <div>
+            🍐 <span x-text="$store.fruitStore.fruits['pear']"></span>
+          </div>
+          <button x-on:click="$store.fruitStore.eat('pear')">Eat</button>
+        </div>
+        <div class="fruit">
+          <div>
+            🍌 <span x-text="$store.fruitStore.fruits['banana']"></span>
+          </div>
+          <button x-on:click="$store.fruitStore.eat('banana')">Eat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+
+</html>
